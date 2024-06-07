@@ -4,7 +4,7 @@ function addNewTask() {
     if (inputValue.length != 0) {
         // Create cross
         const cross = document.createElement('span');
-        const crossNode = document.createTextNode('✖');
+        const crossNode = document.createTextNode('X');
         cross.appendChild(crossNode);
         cross.classList.add("cross");
         // Create list element
@@ -13,7 +13,7 @@ function addNewTask() {
         li.appendChild(node);
         li.appendChild(cross);
         document.getElementsByTagName('ul')[0].appendChild(li);
-        document.getElementsByTagName('ul')[0].value = "";
+        document.getElementById("listInput").value = "";
     } else {
         alert("You can't add an empty item!"); 
     }
