@@ -8,7 +8,13 @@ body {
 
 header {
     background-color: #bfffcd;
-    padding: 50px 100px;
+    padding: 40px 0;
+}
+
+header img {
+    margin-bottom: 20px;
+    min-width: 200px;
+    width: 10%;
 }
 
 h1, h3 {
@@ -19,12 +25,13 @@ h1 {
     color: #386943;
     font-family: "Lucida Handwriting", cursive;
     font-size: 40px;
-    margin-bottom: 20px;
+    margin-bottom: 30px;
 }
 
 h2 {
     font-size: 24px;
     font-style: italic;
+    margin-bottom: 20px;
 }
 
 h3 {
@@ -51,6 +58,7 @@ button {
     color: #386943;
     cursor: pointer;
     font-size: 1em;
+    font-weight: bold;
     min-width: 100px;
     padding: 10px;
 }
