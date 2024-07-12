@@ -41,6 +41,7 @@ async function getSearchRecipes(recipe) {
             var thumbnail = recipesJson.meals[i].strMealThumb;
             var meal = recipesJson.meals[i].strMeal;
             var recipeHTML = document.createElement('li');
+            recipeHTML.setAttribute("onclick", "toggleRecipeOverlay()");
 
             console.log(recipeHTML);
             recipeHTML.innerHTML = `
@@ -57,7 +58,7 @@ async function getSearchRecipes(recipe) {
 }
 
 getRandomRecipes();
-// Get random recipes from API
+// Get random recipes from A PI
 async function getRandomRecipes() {
     const url = "https://www.themealdb.com/api/json/v1/1/random.php";
     document.getElementById('randomRecipeGrid').innerHTML = '';
@@ -75,6 +76,7 @@ async function getRandomRecipes() {
             var thumbnail = recipesJson.meals[0].strMealThumb;
             var meal = recipesJson.meals[0].strMeal;
             var recipeHTML = document.createElement('li');
+            recipeHTML.setAttribute("onclick", "toggleRecipeOverlay()");
 
             console.log(recipeHTML);
             recipeHTML.innerHTML = `
@@ -89,6 +91,12 @@ async function getRandomRecipes() {
     }
 }
 
-
-
-
+function toggleRecipeOverlay() {
+    let overlayDiv = document.querySelector(".recipe-overlay");
+    console.log(overlayDiv.style.display);
+    if (overlayDiv.style.display !=  'block') {
+        overlayDiv.style.display = 'block';
+    } else {
+        overlayDiv.style.display = 'none';
+    }
+}
