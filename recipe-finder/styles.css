@@ -17,25 +17,28 @@ header img {
     width: 10%;
 }
 
-h1, h3 {
+h1, h3, h4 {
     font-weight: bold;
+}
+
+h2, h3, h4, p {
+    margin-bottom: 20px;
 }
 
 h1 {
     color: #386943;
     font-family: "Lucida Handwriting", cursive;
-    font-size: 40px;
+    font-size: 50px;
     margin-bottom: 30px;
 }
 
 h2 {
-    font-size: 24px;
+    font-size: 35px;
     font-style: italic;
-    margin-bottom: 20px;
 }
 
 h3 {
-    font-size: 20px;
+    font-size: 25px;
 }
 
 .search-bar {
@@ -71,4 +74,26 @@ button:focus {
 button:active {
     background-color: #58b86d;
     color: white;
+}
+
+.recipe-wrapper {
+    margin: 50px auto;
+    max-width: 1400px;
+}
+
+.recipe-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    margin-top: 50px;
+    row-gap: 50px;
+}
+
+.recipe-thumbnail {
+    border-radius: 10px;
+    height: 350px;
+}
+
+.recipe-name {
+    color: #386943;
+    font-size: 25px;
 }
