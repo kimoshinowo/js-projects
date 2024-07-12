@@ -94,23 +94,38 @@ button:active {
 
 .recipe-thumbnail {
     border-radius: 10px;
-    cursor: pointer;
     height: 350px;
+    margin: auto;
+    overflow: hidden;
+    width: 350px;
+}
+
+.recipe-thumbnail-asset {
+    cursor: pointer;
+    transition: transform .3s;
+    width: 100%;
+}
+
+.recipe-thumbnail-asset:hover {
+    transform: scale(1.1);
 }
 
 .recipe-image {
+    border-radius: 10px;
     float: right;
+    height: 350px;
     margin: 0 0 50px 50px;
 }
 
-.recipe-name {
+.recipe-name,
+.recipe-name-overlay {
     color: #386943;
-    cursor: pointer;
     font-size: 25px;
 }
 
-.recipe-name-overlay {
-    cursor: default;
+.recipe-name:hover {
+    cursor: pointer;
+    text-decoration: underline;
 }
 
 .recipe-overlay {
@@ -128,6 +143,7 @@ button:active {
     transition: display .2s ease-out;
     transform: translate(-50%, -50%);
     width: 60%;
+    z-index: 10;
 }
 
 .recipe-overlay-cross {

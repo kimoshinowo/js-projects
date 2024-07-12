@@ -79,7 +79,9 @@ async function getRandomRecipes() {
 
             recipeHTML.innerHTML = `
                 <h4 class="recipe-name">${meal}</h4>
-                <img src="${thumbnail}" class="recipe-thumbnail">
+                <div class="recipe-thumbnail">
+                    <img src="${thumbnail}" class="recipe-thumbnail-asset">
+                <div>
             `;
             document.getElementById('randomRecipeGrid').append(recipeHTML);
         } catch (error) {
@@ -133,8 +135,8 @@ async function getRecipeInstructions(mealId){
         // console.log(recipesJson.meals[0]);
         recipeHTML.innerHTML = `
             <span class="recipe-overlay-cross" onclick="toggleRecipeOverlay()">X</span>
-            <h3 class="recipe-name recipe-name-overlay">${meal}</h4>
-            <img src="${thumbnail}" class="recipe-thumbnail recipe-image">
+            <h3 class="recipe-name-overlay">${meal}</h4>
+            <img src="${thumbnail}" class="recipe-image">
             
             <div class="recipe-text">
                 <h4>Ingredients:</h4>
