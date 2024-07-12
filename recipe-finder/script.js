@@ -40,10 +40,10 @@ async function getSearchRecipes(recipe) {
         for (let i = 0; i < recipesJson.meals.length; i++){
             var thumbnail = recipesJson.meals[i].strMealThumb;
             var meal = recipesJson.meals[i].strMeal;
+            var mealId = recipesJson.meals[i].idMeal;
             var recipeHTML = document.createElement('li');
-            recipeHTML.setAttribute("onclick", "toggleRecipeOverlay()");
+            recipeHTML.setAttribute("onclick", "toggleRecipeOverlay(" + mealId + ")");
 
-            console.log(recipeHTML);
             recipeHTML.innerHTML = `
                 <h4 class="recipe-name">${meal}</h4>
                 <img src="${thumbnail}" class="recipe-thumbnail">
@@ -52,7 +52,6 @@ async function getSearchRecipes(recipe) {
         }
     } catch (error) {
         console.error(error.message);
-
         document.getElementById('searchRecipeGrid').innerHTML = "<p>Sorry, we couldn't find any recipes which match your search.</p>";
     }
 }
@@ -72,13 +71,12 @@ async function getRandomRecipes() {
             }
         
             const recipesJson = await response.json();
-            console.log(recipesJson);
             var thumbnail = recipesJson.meals[0].strMealThumb;
             var meal = recipesJson.meals[0].strMeal;
+            var mealId = recipesJson.meals[0].idMeal;
             var recipeHTML = document.createElement('li');
-            recipeHTML.setAttribute("onclick", "toggleRecipeOverlay()");
+            recipeHTML.setAttribute("onclick", "toggleRecipeOverlay(" + mealId + ")");
 
-            console.log(recipeHTML);
             recipeHTML.innerHTML = `
                 <h4 class="recipe-name">${meal}</h4>
                 <img src="${thumbnail}" class="recipe-thumbnail">
@@ -91,12 +89,67 @@ async function getRandomRecipes() {
     }
 }
 
-function toggleRecipeOverlay() {
+function toggleRecipeOverlay(mealId) {
     let overlayDiv = document.querySelector(".recipe-overlay");
-    console.log(overlayDiv.style.display);
+
     if (overlayDiv.style.display !=  'block') {
         overlayDiv.style.display = 'block';
+        getRecipeInstructions(mealId);
     } else {
         overlayDiv.style.display = 'none';
+    }
+}
+
+async function getRecipeInstructions(mealId){
+    const url = "https://www.themealdb.com/api/json/v1/1/lookup.php?i=";
+    const searchUrl = url.concat(mealId);
+
+    try {
+        const response = await fetch(searchUrl);
+
+        if (!response.ok) {
+            throw new Error(`Response status: ${response.status}`);
+        }
+
+        const recipesJson = await response.json();
+
+        document.getElementById('recipeOverlay').innerHTML = '';
+
+        var thumbnail = recipesJson.meals[0].strMealThumb;
+        var meal = recipesJson.meals[0].strMeal;
+        var mealId = recipesJson.meals[0].idMeal;
+        var mealInstructions = recipesJson.meals[0].strInstructions;
+        var recipeHTML = document.createElement('div');
+
+        var ingredients = '';
+
+        for (item in recipesJson.meals[0]) {
+            if (item.substring(0,13) == 'strIngredient' && recipesJson.meals[0][item] && recipesJson.meals[0][item] !== "") {
+                measure = item.replace('strIngredient', 'strMeasure');
+                ingredients = ingredients.concat('<li class="recipe-ingredient">', recipesJson.meals[0][measure], ' ', recipesJson.meals[0][item], '</li>');
+            }
+        }
+
+        // console.log(recipesJson.meals[0]);
+        recipeHTML.innerHTML = `
+            <span class="recipe-overlay-cross" onclick="toggleRecipeOverlay()">X</span>
+            <h3 class="recipe-name recipe-name-overlay">${meal}</h4>
+            <img src="${thumbnail}" class="recipe-thumbnail recipe-image">
+            
+            <div class="recipe-text">
+                <h4>Ingredients:</h4>
+                    <ul class="recipe-ingredients">
+                        ${ingredients}
+                    </ul>
+            </div>
+            <div class="recipe-text">
+                <h4>Instructions:</h4>
+                <p class="recipe-instructions">${mealInstructions}</p>
+            </div>
+        `;
+        document.getElementById('recipeOverlay').append(recipeHTML);
+    } catch (error) {
+        console.error(error.message);
+        document.getElementById('recipeOverlay').innerHTML = "<p>Sorry, we can't find the details of this recipe right now.</p>";
     }
 }
