@@ -15,23 +15,25 @@
 
         <div class="search-bar">
             <input type="text" id="searchInput" placeholder="E.g. Spaghetti bolognese">
-            <button onclick="search()">Search</button>
+            <button id="searchButton" onclick="search()">Search</button>
         </div>
 
         <!-- Display the recipes -->
-        
-        <!-- Show this if no search has been made -->
-        <div id="popularRecipes">
-            <h3>Not sure? Take a look at what&rsquo;s popular right now...</h3>
-        </div>
-        
-        <!-- Replace with this when search happens -->
-        <div id="recipes">
+        <div class="recipe-wrapper" id="recipes">
+            <!-- Show this if no search has been made -->
+            <div id="popularRecipes">
+                <h3>Not sure? Here are some of our favourites...</h3>
+                <ul class="recipe-grid" id="randomRecipeGrid">
+                    
+                </ul>
+            </div>
+            
+            <!-- Replace with this when search happens -->
             <div class="recipes-heading"><h3 id="recipesLabel"></h3></div>
                 <!-- h3 to change accordingly depending on what was clicked. -->
-                <div id="recipe-grid">
+                <ul class="recipe-grid" id="searchRecipeGrid">
                     
-                </div>
+                </ul>
             </div>
         </div>
 
